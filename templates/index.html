@@ -1,0 +1,16 @@
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="custom-card">
+    <h2 class="mb-4">Upload Recipient Data</h2>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.file.label(class="form-control-label") }}
+            {{ form.file(class="form-control-file") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
