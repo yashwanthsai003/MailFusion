@@ -173,17 +173,79 @@ Access the application at `http://localhost:5000`.
 
 ---
 
-## **Usage Instructions**
+### **Usage Instructions**
 
-### 1. **Upload Recipient Data**
-- Upload a CSV file containing recipient details on the homepage.
+Follow these steps to use the MailFusion application effectively:
 
-### 2. **Configure Email Settings**
-- Enter dynamic placeholders in the email template (e.g., `{FirstName}`).
-- Schedule emails and set a throttle rate.
+#### 1. **Upload Recipient Data**
+- **Access the Application**: 
+  Open your browser and navigate to [http://localhost:5000](http://localhost:5000).
+  
+- **Upload CSV File**:
+  - On the homepage, locate the "Upload CSV" section.
+  - Click **"Choose File"** and select your CSV file containing recipient data.
+  
+- **CSV Format Requirements**:
+  - The file must have at least one column labeled `Email`.
+  - You can include additional columns (e.g., `FirstName`, `Company`) for personalized email content.
+  
+- **Submit**:
+  - Click the **"Upload"** button to process the file.
+  - A success message will appear if the upload is successful, and the data will be stored in the database.
 
-### 3. **Monitor Email Campaign**
-- Track the progress and status of emails on the dashboard.
+#### 2. **Configure Email Settings**
+- **Navigate to the Configuration Page**:
+  After uploading the CSV file, you'll be redirected to the **"Configuration"** page.
+
+- **Customize the Email Prompt**:
+  - Enter the email content in the provided text box.
+  - Use placeholders for dynamic content based on CSV columns, such as `{FirstName}`, `{Company}`, or `{ProductName}`.
+  - Example:
+    ```
+    Dear {FirstName},
+    
+    We’re excited to share our latest product, {ProductName}, with you. Get an exclusive offer today!
+
+    Best regards,
+    Your Company
+    ```
+
+- **Schedule Email Sending**:
+  - Select the desired date and time for sending emails.
+  - If no schedule is set, emails will be sent immediately.
+
+- **Set Throttling Options**:
+  - Specify the rate limit (e.g., "Send 50 emails per hour") to comply with email provider limits.
+
+- **Provide SMTP/ESP Details**:
+  - Enter the required details for email delivery:
+    - **SMTP Server**: Your email provider's server (e.g., `smtp.mailgun.org`).
+    - **SMTP Port**: Typically `587` for TLS or `465` for SSL.
+    - **Sender Email Address**: The email address you’re sending from.
+    - **Password/API Key**: The password or API key for the sender's account.
+  - Note: If you're testing without an actual ESP, placeholder credentials can be used.
+
+- **Submit Configuration**:
+  - Click **"Configure and Schedule"** to save the settings and schedule emails.
+  - A confirmation message will appear upon successful scheduling.
+
+#### 3. **Monitor Email Campaign**
+- **Access the Dashboard**:
+  - After scheduling, you’ll be redirected to the **"Dashboard"** page.
+  - Alternatively, navigate to [http://localhost:5000/dashboard](http://localhost:5000/dashboard).
+
+- **View Campaign Status**:
+  - The dashboard provides a real-time overview of the email campaign:
+    - **Progress Bar**: Shows the percentage of emails sent.
+    - **Email Table**: Lists each recipient’s status, including:
+      - **Recipient Email**
+      - **Email Sending Status** (`Sent`, `Failed`, or `Pending`)
+      - **Delivery Status** (if tracked via Mailgun, e.g., `Delivered`, `Opened`, or `Bounced`)
+      - **Timestamp** (when the email was processed)
+
+- **Real-Time Updates**:
+  - The table and progress bar update automatically as emails are processed.
+  - Failed emails will display appropriate error messages in the table.
 
 ---
 
