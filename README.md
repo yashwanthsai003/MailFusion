@@ -2,7 +2,7 @@
 
 # **MailFusion**
 
-**MailFusion** is an application that sends customized emails, optimized to increase the efficiency and personalization of your email campaigns. MailFusion allows users to upload recipient lists in CVS format, customize email content with dynamic placeholders, personalize emails with the GPT-Neo-125M model, schedule emails along with throttling capability and check the campaign statistic with a live analytics dashboard.
+MailFusion is an application that sends customized emails, optimized to increase the efficiency and personalization of your email campaigns. MailFusion allows users to upload recipient lists in CVS format, customize email content with dynamic placeholders, personalize emails with the GPT-Neo-125M model, schedule emails along with throttling capability and check the campaign statistic with a live analytics dashboard.
 
 ---
 
