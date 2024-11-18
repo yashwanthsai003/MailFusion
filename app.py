@@ -1,33 +1,29 @@
-# app.py
 import os
 from dotenv import load_dotenv
-
-load_dotenv()  # Load environment variables from .env
-
+load_dotenv()  # Loading environment variables from .env
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
 from config import Config
 from models import db, EmailData, EmailConfig, EmailStatus
 from forms import UploadForm, ConfigureForm
 from celery_worker import make_celery
 from utils import send_emails_task
 
-# Initialize Flask app
+# Initializing flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Initialize extensions
+# Initializing extensions
 db.init_app(app)
 migrate = Migrate(app, db)
 socketio = SocketIO(app, message_queue=app.config['SOCKETIO_MESSAGE_QUEUE'])
 
-# Initialize Celery
+# Initializing celery
 celery = make_celery(app)
 
-# Ensure uploads directory exists
+# Checking uploads directory exists
 if not os.path.exists('uploads'):
     os.makedirs('uploads')
 
@@ -52,14 +48,14 @@ def index():
 @app.route('/configure', methods=['GET', 'POST'])
 def configure():
     form = ConfigureForm()
-    # Dynamically populate placeholders based on uploaded CSV columns
+    # Dynamically populating placeholders based on uploaded CSV columns
     columns = EmailData.get_columns()
     form.prompt.description = 'Available placeholders: ' + ', '.join(['{' + col + '}' for col in columns])
     if form.validate_on_submit():
-        # Save configuration to database
+        # Saveing configuration to database
         try:
             EmailConfig.save_config(form)
-            # Schedule email sending task
+            # Scheduling email sending task
             send_time = form.schedule_time.data
             send_emails_task.apply_async(eta=send_time)
             flash('Emails scheduled successfully!', 'success')
@@ -76,7 +72,7 @@ def dashboard():
 # SocketIO event handlers
 @socketio.on('connect')
 def handle_connect():
-    pass  # Connection established
+    pass
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

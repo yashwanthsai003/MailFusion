@@ -1,13 +1,11 @@
-<!-- templates/layout.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>MailFusion</title>
-    <!-- Include Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom Styles -->
     <style>
         body {
             background-color: #f8f9fa;
@@ -49,9 +47,9 @@
         {% block content %}{% endblock %}
     </div>
 
-    <!-- Include jQuery and Bootstrap JS -->
+    <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- Include Socket.IO client library -->
+    <!-- Socket.IO client library -->
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {% block scripts %}{% endblock %}

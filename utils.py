@@ -1,4 +1,3 @@
-# utils.py
 from models import db, EmailData, EmailConfig, EmailStatus
 from jinja2 import Template
 from transformers import pipeline
@@ -9,12 +8,12 @@ from celery_worker import celery
 from flask_socketio import SocketIO, emit
 from flask import current_app
 
-# Initialize the language generation pipeline
+# Initializing the language generation pipeline
 text_generator = pipeline('text-generation', model='EleutherAI/gpt-neo-125M')
 
 @celery.task
 def send_emails_task():
-    from app import socketio  # Import here to avoid circular import
+    from app import socketio  # Importing here to avoid circular import
     email_config = EmailConfig.query.first()
     email_data_list = EmailData.query.all()
     total_emails = len(email_data_list)
@@ -28,27 +27,27 @@ def send_emails_task():
         try:
             generated_text = text_generator(prompt, max_length=500, do_sample=True)[0]['generated_text']
             email_content = generated_text
-            # Send email via Mailgun
+            # Sending email via Mailgun
             response = send_email_via_mailgun(email_config, email_data.email, email_content)
-            if response.status_code == 200:
+            if response and response.status_code == 200:
                 status = 'Sent'
             else:
                 status = 'Failed'
-            # Update status
+            # Updating status
             email_status = EmailStatus(
                 recipient=email_data.email,
                 status=status
             )
             db.session.add(email_status)
             db.session.commit()
-            # Emit update
+            # Emit updatation
             socketio.emit('email_status', {'recipient': email_data.email, 'status': status}, namespace='/')
             emails_sent += 1
             progress = int((emails_sent / total_emails) * 100)
             socketio.emit('progress', {'progress': progress}, namespace='/')
             time.sleep(delay_between_emails)
         except Exception as e:
-            # Handle exceptions and continue
+            # Handling exceptions and continue
             email_status = EmailStatus(
                 recipient=email_data.email,
                 status='Failed'
@@ -61,6 +60,8 @@ def send_emails_task():
 def send_email_via_mailgun(email_config, recipient, content):
     MAILGUN_API_KEY = current_app.config['MAILGUN_API_KEY']
     MAILGUN_DOMAIN = current_app.config['MAILGUN_DOMAIN']
+    if not MAILGUN_API_KEY or not MAILGUN_DOMAIN:
+        return None
     return requests.post(
         f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages",
         auth=("api", MAILGUN_API_KEY),

@@ -1,4 +1,3 @@
-# models.py
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
@@ -13,7 +12,7 @@ class EmailData(db.Model):
     @staticmethod
     def process_csv(filepath):
         df = pd.read_csv(filepath)
-        # Validate if 'Email' column exists
+        # Validating if 'Email' column exists
         if 'Email' not in df.columns:
             raise Exception("CSV file must contain 'Email' column.")
         db.session.query(EmailData).delete()
