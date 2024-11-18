@@ -90,7 +90,7 @@ If you haven't already cloned the repository, follow these steps. If you've alre
    - Open **Command Prompt** or **PowerShell**.
    - Navigate to the directory where you want to clone the project:
      ```bash
-     cd C:\Users\yashw\OneDrive\Documents
+     cd /path/to/your/desired/directory
      ```
    - Clone the repository:
      ```bash
@@ -106,7 +106,7 @@ If you haven't already cloned the repository, follow these steps. If you've alre
 If you've already cloned the repository, ensure you're in the project directory.
 
 ```bash
-cd C:\Users\yashw\OneDrive\Documents\MailFusion
+cd /path/to/your/desired/directory\MailFusion
 ```
 
 ### 3. Set Up Virtual Environment
@@ -229,7 +229,7 @@ Celery handles background tasks like sending emails.
 2. **Navigate to Project Directory and Activate Virtual Environment:**
 
    ```bash
-   cd C:\Users\yashw\OneDrive\Documents\MailFusion
+   cd /path/to/your/desired/directory\MailFusion
    venv\Scripts\activate
    ```
 
@@ -252,7 +252,7 @@ Start the Flask development server.
 2. **Navigate to Project Directory and Activate Virtual Environment:**
 
    ```bash
-   cd C:\Users\yashw\OneDrive\Documents\MailFusion
+   cd /path/to/your/desired/directory\MailFusion
    venv\Scripts\activate
    ```
 
@@ -390,10 +390,6 @@ Here are some common issues and how to resolve them:
   - Ensure that Flask-SocketIO is correctly configured.
   - Verify that the Socket.IO client library is included in your templates.
   - Check for any JavaScript errors in the browser console.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
